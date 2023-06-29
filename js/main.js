@@ -96,5 +96,24 @@ posts.forEach(singlePosts => {
     `
 });
 
+// MILESTONE 3:
+const likeButton = document.querySelectorAll('.js-like-button');
+// const likedPosts = [];
+likeButton.forEach(singleLikeButton => {
+    console.log(singleLikeButton);
+    singleLikeButton.addEventListener('click', 
+    function(event) {
+        event.preventDefault();
+        console.log('cliccato like');
+
+        this.classList.add('like-button--liked')
+
+    });
+
+});
 
 
+// comportamneto di HREF con # Blocchiamo il suo normale funzionamento. sottomettiamo l'href.
+//metodo 1: levare HREF dall' <a>
+//metodo 2: nogo scritto nell'href
+//metodo 3: Gerstiamo l' " event" dalla function per prevenire il comprotamento di default. ovvero event.preventDefault().
