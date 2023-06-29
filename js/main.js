@@ -99,33 +99,32 @@ posts.forEach(singlePosts => {
 // MILESTONE 3:
 const likeButton = document.querySelectorAll('.js-like-button');
 const likedPosts = [];
+
 likeButton.forEach(singleLikeButton => {
-    console.log(singleLikeButton);
-    singleLikeButton.addEventListener('click', 
-    function(event) {
-        event.preventDefault();
-        console.log('cliccato like');
-        // condizione per non far ripetere il click nell'array stampato in console.
-        if(!this.classList.contains('like-button--liked')){
-            this.classList.add('like-button--liked');
+    singleLikeButton.addEventListener('click', function(event) {
+    event.preventDefault();
 
-            const postId = parseInt(this.getAttribute('data-postid'));
-            likedPosts.push(postId)
+    const postId = parseInt(this.getAttribute('data-postid'));
+    const likeCounter = document.getElementById(`like-counter-${postId}`);
+    let currentLikeNumber = parseInt(likeCounter.innerText);
 
-            console.log(this.getAttribute('class'));
-            console.log(this.getAttribute('href'));
-            //INCREMENTO DEI LIKES
-            const likeCounter = document.getElementById(`like-counter-${postId}`);
-            
-            let currentLikeNumber = parseInt(likeCounter.innerText);
-            console.log(likeCounter.innerHTML);
-            likeCounter.innerText = ++currentLikeNumber;
-            console.log(currentLikeNumber, typeof currentLikeNumber);
+    if (!this.classList.contains('like-button--liked')) {
+        this.classList.add('like-button--liked');
+        likeCounter.innerText = ++currentLikeNumber;
+        likedPosts.push(postId);
+    }   
+    else {
+        this.classList.remove('like-button--liked');
+        likeCounter.innerText = --currentLikeNumber;
+        const index = likedPosts.indexOf(postId);
+        if (index !== -1) {
+            likedPosts.splice(index, 1);
         }
-        console.log(likedPosts);
+    }
     });
-
 });
+
+
 
 
 
