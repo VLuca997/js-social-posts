@@ -88,7 +88,7 @@ posts.forEach(singlePosts => {
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${singlePosts.likes}</b> persone
+                        Piace a <b id="like-counter-${singlePosts.id}" class="js-likes-counter">${singlePosts.likes}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -98,19 +98,35 @@ posts.forEach(singlePosts => {
 
 // MILESTONE 3:
 const likeButton = document.querySelectorAll('.js-like-button');
-// const likedPosts = [];
+const likedPosts = [];
 likeButton.forEach(singleLikeButton => {
     console.log(singleLikeButton);
     singleLikeButton.addEventListener('click', 
     function(event) {
         event.preventDefault();
         console.log('cliccato like');
+        // condizione per non far ripetere il click nell'array stampato in console.
+        if(!this.classList.contains('like-button--liked')){
+            this.classList.add('like-button--liked');
 
-        this.classList.add('like-button--liked')
+            const postId = parseInt(this.getAttribute('data-postid'));
+            likedPosts.push(postId)
 
+            console.log(this.getAttribute('class'));
+            console.log(this.getAttribute('href'));
+            //INCREMENTO DEI LIKES
+            const likeCounter = document.getElementById(`like-counter-${postId}`);
+            
+            let currentLikeNumber = parseInt(likeCounter.innerText);
+            console.log(likeCounter.innerHTML);
+            likeCounter.innerText = ++currentLikeNumber;
+            console.log(currentLikeNumber, typeof currentLikeNumber);
+        }
+        console.log(likedPosts);
     });
 
 });
+
 
 
 // comportamneto di HREF con # Blocchiamo il suo normale funzionamento. sottomettiamo l'href.
